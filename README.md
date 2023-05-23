@@ -5,9 +5,14 @@ El Gestor de IndexDB es un módulo que facilita la gestión de la base de datos 
 ## Uso
 
 ### Instalación
+#### CDN estable
+https://rawcdn.githack.com/OrozcoOscar/IndexedDBModule/9b24cc569aa63c3a3b8f70327e86c1a531619d7c/indexedDb.js
+#### CDN desarrollo
+https://raw.githack.com/OrozcoOscar/IndexedDBModule/main/indexedDb.js
 
-No se requiere ninguna instalación especial para utilizar este módulo. Puedes simplemente copiar y pegar el código en tu proyecto.
-
+```
+<script src="https://raw.githack.com/OrozcoOscar/IndexedDBModule/main/indexedDb.js"></script>
+```
 ### Creación de una instancia
 
 Para comenzar a utilizar el Gestor de IndexDB, crea una instancia del objeto `DB` pasando el nombre de la base de datos y la versión como parámetros:
