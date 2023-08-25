@@ -4,7 +4,7 @@
  * 22/08/23
  */
 
-export class IndexDB {
+class IndexDB {
     /** 
     * Gestor de IndexDB
      * @param nameDB Nombre de la DB.
