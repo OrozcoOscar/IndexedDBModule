@@ -80,13 +80,19 @@ class IndexDB {
     }
 
     async get(tabla, id) {
-        const transaction = this.db.transaction([tabla], 'readwrite');
-        const store = transaction.objectStore(tabla);
+        const transaction = this.db?.transaction([tabla], 'readwrite');
+        const store = transaction?.objectStore(tabla);
 
         return new Promise((resolve, reject) => {
             const request = store.get(id);
+            
             request.onsuccess = (e) => {
-                resolve({ status: true, data: e.target.result });
+                if(e.target.result){
+                    resolve({ status: true, data: e.target.result });
+                }else{
+                    resolve({ status: false, data: null });
+                }
+                
             };
             request.onerror = (e) => {
                 reject({ status: false, error: e });
@@ -119,16 +125,33 @@ class IndexDB {
         });
     }
 
-    async set(tabla, data) {
-        try {
-            const transaction = this.db?.transaction([tabla], 'readwrite');
-            const store = transaction?.objectStore(tabla);
-            await store?.add(data);
-            return { status: true, data };
-        } catch (error) {
-            return { status: false, error };
-        }
+   async set(tabla, data) {
+    try {
+        const transaction = this.db?.transaction([tabla], 'readwrite');
+        const store = transaction?.objectStore(tabla);
+        return new Promise((resolve, reject) => {
+            const request = store.get(data.id);
+            
+            request.onsuccess = async (e) => {
+                if(e.target.result){
+                   resolve({ status: false, data: e.target.result, message: 'El elemento ya existe' });
+                }else{
+                     let result = await store?.add(data);
+                resolve({ status: true, data, message: 'Elemento agregado' });
+                }
+                
+            };
+            request.onerror = (e) => {
+                reject({ status: false, error: e });
+            };
+        });
+        
+         
+    } catch (error) {
+        return { status: false, error };
     }
+}
+
 
     async update(tabla, data) {
         try {
