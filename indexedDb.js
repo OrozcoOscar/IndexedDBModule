@@ -154,13 +154,31 @@ class IndexDB {
 
 
     async update(tabla, data) {
-        try {
-            const transaction = this.db.transaction([tabla], 'readwrite');
-            const store = transaction.objectStore(tabla);
-            await store.put(data);
-            return { status: true };
-        } catch (error) {
-            return { status: false, error };
-        }
+            try {
+                const transaction = this.db?.transaction([tabla], 'readwrite');
+                const store = transaction?.objectStore(tabla);
+                
+                return new Promise((resolve, reject) => {
+                    const request = store.get(data.id);
+                    
+                    request.onsuccess = async (e) => {
+                        if(e.target.result){
+                                let result = await store?.put(data);
+                        resolve({ status: true, data, message: 'Elemento actualizado' });
+                         
+                        }else{
+                           resolve({ status: false, data: null, message: 'El elemento NO existe' });
+                        }
+                        
+                    };
+                    request.onerror = (e) => {
+                        reject({ status: false, error: e });
+                    };
+                });
+                
+                 
+            } catch (error) {
+                return { status: false, error };
+            }
     }
 }
