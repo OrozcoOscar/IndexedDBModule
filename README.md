@@ -13,75 +13,119 @@ https://raw.githack.com/OrozcoOscar/IndexedDBModule/main/indexedDb.js
 ```
 <script src="https://raw.githack.com/OrozcoOscar/IndexedDBModule/main/indexedDb.js"></script>
 ```
-### Creación de una instancia
+## Uso
 
-Para comenzar a utilizar el Gestor de IndexDB, crea una instancia del objeto `DB` pasando el nombre de la base de datos y la versión como parámetros:
+### Crear una instancia de la base de datos
 
 ```javascript
-const gestorDB = new DB('nombreDB', 1);
+const databaseName = 'miBaseDeDatos';
+const databaseVersion = 1;
+const miBaseDeDatos = new IndexDB(databaseName, databaseVersion);
 ```
 
-### Creación de tablas
-
-Puedes crear tablas en la base de datos utilizando el método `createTables`. Pasa un array de objetos que representen las tablas que deseas crear. Cada objeto debe contener las propiedades `tabla` (nombre de la tabla), `key` (clave primaria) y opcionalmente `autoIncrement` (valor booleano para indicar si la clave primaria debe ser autoincremental). Por ejemplo:
+### Crear tablas en la base de datos
 
 ```javascript
-const tablas = [
-  { tabla: 'tabla1', key: 'id', autoIncrement: true },
-  { tabla: 'tabla2', key: 'id' },
+const tables = [
+    { tabla: 'usuarios', key: 'id' },
+    { tabla: 'productos', key: 'codigo' }
 ];
 
-gestorDB.createTables(tablas);
+miBaseDeDatos.createTables(tables);
 ```
 
-### Operaciones en la base de datos
-
-El Gestor de IndexDB proporciona métodos para realizar operaciones comunes en la base de datos, como insertar, actualizar, eliminar y consultar registros.
-
-- `set(tabla, data)`: Inserta un nuevo registro en la tabla especificada.
-- `update(tabla, data)`: Actualiza un registro existente en la tabla especificada.
-- `remove(tabla, id)`: Elimina un registro de la tabla especificada por su ID.
-- `removeAll(tabla)`: Elimina todos los registros de la tabla especificada.
-- `get(tabla, id, callback)`: Obtiene un registro de la tabla especificada por su ID y ejecuta el callback con el resultado.
-- `getAll(tabla, callback)`: Obtiene todos los registros de la tabla especificada y ejecuta el callback con el resultado.
-
-Aquí hay un ejemplo de cómo usar algunos de estos métodos:
+### Agregar un elemento a una tabla
 
 ```javascript
-// Insertar un nuevo registro
-const nuevoRegistro = { id: 1, nombre: 'Ejemplo' };
-gestorDB.set('tabla1', nuevoRegistro);
-
-// Actualizar un registro existente
-const registroActualizado = { id: 1, nombre: 'Nuevo Ejemplo' };
-gestorDB.update('tabla1', registroActualizado);
-
-// Eliminar un registro
-gestorDB.remove('tabla1', 1);
-
-// Obtener un registro por su ID
-gestorDB.get('tabla1', 1, (registro) => {
-  console.log(registro);
-});
-
-// Obtener todos los registros de una tabla
-gestorDB.getAll('tabla1', (registros) => {
-  console.log(registros);
-});
+const usuario = { id: 1, nombre: 'Usuario Ejemplo' };
+miBaseDeDatos.set('usuarios', usuario)
+    .then(result => {
+        console.log(result.message); // Elemento agregado
+    })
+    .catch(error => {
+        console.error(error);
+    });
 ```
 
-### Conexión a la base de datos
-
-Para establecer la conexión con la base de datos, utiliza el método `connect`. Puedes proporcionar una función de callback opcional que se ejecutará una vez que se haya establecido la conexión:
+### Obtener un elemento por su clave primaria
 
 ```javascript
-gestorDB.connect(() => {
-  console.log('Conexión exitosa');
-  //   gestorDB.get("productos",1,(e)=>console.log(e))
-  //   gestorDB.remove("productos",1)
-  //   gestorDB.update("productos",{id:1,name:"arroz",price:1000})
-  //   gestorDB.removeAll("productos")
-});
+miBaseDeDatos.get('usuarios', 1)
+    .then(result => {
+        if (result.status) {
+            console.log(result.data); // { id: 1, nombre: 'Usuario Ejemplo' }
+        } else {
+            console.log('Usuario no encontrado');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+### Obtener todos los elementos de una tabla
+
+```javascript
+miBaseDeDatos.getAll('usuarios')
+    .then(result => {
+        if (result.status) {
+            console.log(result.data); // Array de objetos de usuarios
+        } else {
+            console.log('Error al obtener usuarios');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+### Actualizar un elemento en una tabla
+
+```javascript
+const usuarioActualizado = { id: 1, nombre: 'Nuevo Nombre de Usuario' };
+miBaseDeDatos.update('usuarios', usuarioActualizado)
+    .then(result => {
+        if (result.status) {
+            console.log(result.message); // Elemento actualizado
+        } else {
+            console.log('Usuario no encontrado');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+### Eliminar un elemento de una tabla
+
+```javascript
+miBaseDeDatos.remove('usuarios', 1)
+    .then(result => {
+        if (result.status) {
+            console.log(result.message); // Elemento eliminado
+        } else {
+            console.log('Usuario no encontrado');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+### Buscar canciones por nombre
+
+```javascript
+miBaseDeDatos.getSongByName('canciones', 'cancion')
+    .then(result => {
+        if (result.status) {
+            console.log(result.data); // Array de canciones que coinciden con el nombre de búsqueda
+        } else {
+            console.log('Error al buscar canciones');
+        }
+    })
+    .catch(error => {
+        console.error(error);
+    });
 ```
 
 ## Contribución
