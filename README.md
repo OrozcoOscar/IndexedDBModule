@@ -6,7 +6,7 @@ El Gestor de IndexDB es un módulo que facilita la gestión de la base de datos 
 
 ### Instalación
 #### CDN estable
-https://rawcdn.githack.com/OrozcoOscar/IndexedDBModule/9b24cc569aa63c3a3b8f70327e86c1a531619d7c/indexedDb.js
+https://rawcdn.githack.com/OrozcoOscar/IndexedDBModule/d54fb4785e5c9b2c5fba66b8820fe84284aa40f9/indexedDb.js
 #### CDN desarrollo
 https://raw.githack.com/OrozcoOscar/IndexedDBModule/main/indexedDb.js
 
