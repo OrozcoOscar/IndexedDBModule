@@ -1,0 +1,20 @@
+{
+  "name": "indexeddbmodule",
+  "version": "1.0.0",
+  "description": "El Gestor de IndexDB es un módulo que facilita la gestión de la base de datos IndexDB en aplicaciones JavaScript.",
+  "main": "indexedDb.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrozcoOscar/IndexedDBModule.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OrozcoOscar/IndexedDBModule/issues"
+  },
+  "homepage": "https://github.com/OrozcoOscar/IndexedDBModule#readme"
+}
