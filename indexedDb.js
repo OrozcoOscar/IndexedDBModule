@@ -1,7 +1,7 @@
 /**
  * OrozcoOscar
  * v2.0
- * 23/09/23
+ * 20/10/23
  */ 
 
 class IndexDB {
@@ -25,7 +25,9 @@ class IndexDB {
                 console.error('Error al abrir la base de datos:', error);
             });
     }
-
+    static databases(){
+        return indexedDB.databases()
+    }
     openDatabase(nameDB, ver) {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(nameDB, ver);
