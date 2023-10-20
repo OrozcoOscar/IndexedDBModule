@@ -14,7 +14,7 @@ class IndexDB {
         this.tables = [];
         this.db = null;
         this.nameDB = nameDB;
-        this.ver = 1;
+        this.ver = undefined;
 
 
         this.openDatabase(nameDB, ver)
@@ -28,6 +28,7 @@ class IndexDB {
     static databases(){
         return indexedDB.databases()
     }
+
     openDatabase(nameDB, ver) {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(nameDB, ver);
@@ -197,7 +198,7 @@ class IndexDB {
             const transaction = this.db?.transaction([tabla], 'readwrite');
             const store = transaction?.objectStore(tabla);
             return new Promise((resolve, reject) => {
-                const request = store.get(data._id);
+                const request = store.get(data[store.keyPath]);
 
                 request.onsuccess = async (e) => {
                     if (e.target.result) {
@@ -228,7 +229,7 @@ class IndexDB {
             const store = transaction?.objectStore(tabla);
 
             return new Promise((resolve, reject) => {
-                const request = store.get(data._id);
+                const request = store.get(data[store.keyPath]);
 
                 request.onsuccess = async (e) => {
                     if (e.target.result) {
