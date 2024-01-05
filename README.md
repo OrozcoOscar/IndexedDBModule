@@ -5,6 +5,10 @@ El Gestor de IndexedDB es un módulo que facilita la gestión de la base de dato
 ## Uso
 
 ### Instalación
+#### NPM
+```
+npm i indexed-db-module
+```
 #### CDN estable
 https://rawcdn.githack.com/OrozcoOscar/IndexedDBModule/d54fb4785e5c9b2c5fba66b8820fe84284aa40f9/indexedDb.js
 #### CDN desarrollo
