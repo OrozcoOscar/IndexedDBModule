@@ -1,6 +1,6 @@
-# Gestor de IndexDB
+# Gestor de IndexedDB
 
-El Gestor de IndexDB es un módulo que facilita la gestión de la base de datos IndexDB en aplicaciones JavaScript.
+El Gestor de IndexedDB es un módulo que facilita la gestión de la base de datos IndexedDB en aplicaciones JavaScript.
 
 ## Uso
 
